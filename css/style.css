@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: aliceblue;
+}
+
+h1{
+    height: 200px;
+    text-align: center;
+    align-content: center;
+}
+
+/*Estructura de la calculadora*/
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calculadora::after{
+    content: '';
+    background-color: aqua;
+    width: 100px;
+    height: 100%;
+}
+.calculadora{
+    height: 850px;
+    width: 600px;
+    background-color: rgb(22, 44, 155);
+    border-radius: 40px;
+    border: 5px solid black;
+}
+#cab{
+    height: 250px;
+    width: 100%;
+    border-radius: 40px;
+    display: flex;
+    background-color: rgb(22, 44, 155);
+    justify-content: center;
+    align-items: center;
+}
+#mostrarValor{
+    width: 90%;
+    background: rgb(115, 117, 119);
+    height: 150px;
+    text-align: right;
+    align-content: center;
+    font-size: 50px;
+    border-radius: 10px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border: 4px solid black;
+    box-shadow: 0 0 20px;
+    
+}
+.calcBody{
+    height: 600px;
+    width: 100%;
+    color: white;
+}
+.row{
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+    justify-items: center;
+}
+
+#separado{
+    grid-column-start: 5;
+}
+#especial{
+    grid-row-start: 4;
+    grid-row-end: 6;
+    grid-column-start: 4;
+    height: 180px;
+}
+
+button{
+    margin-top: 20px;
+    width: 80PX;
+    height: 70PX;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 3px solid black;
+    box-shadow: 0 0 10px;
+}
+button:hover{
+    filter: sepia(0.7);
+}
+
+
+/*Estilos botones*/
+
+#on{
+    background-color: green;
+
+}
+#off{
+    background-color: red;
+
+}
+.memoria, .limpiar{
+    background-color: orange;
+}
+.operadores {
+    background-color: bisque;
+}
+
+
+/*MediaQueries*/
+
+@media (max-width: 425px) {
+    #especial{
+        height: 80px;
+    }
+
+    .container{
+        height: 160vh;
+    }
+    td{
+        height: 5px !important;
+    }
+    .calculadora{
+        height: 500px;
+        width: 300px;
+    }
+    button{
+        width: 40px;
+        height: 25px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    tr{
+        height: 5px !important;
+    }
+    #mostrarValor{
+        font-size: 25px;
+    }
+    .row{
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+        justify-items: center;
+    }
+}
