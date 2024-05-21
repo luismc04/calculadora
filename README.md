@@ -44,4 +44,4 @@ En mi [```.html```](./index.html) he creado un div que contiene a la calculadora
 ### JavaScripts
  La estructura de mi [```script.js```](./js/script.js)  se divide en dos partes principales:
  - Delaraciones de variables
- - Los metodos y funciones que voy autilizar
+ - Los metodos y funciones que voy autilizar 
