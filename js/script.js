@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!encendida) return;
 
-
         //Valores  Numericos
         if(parseInt(valorBoton) || valorBoton === '0' || valorBoton === '00'){
 
