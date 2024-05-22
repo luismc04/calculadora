@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     //Declariones de variables
-    
     let encendida = false;
-    let valores = [];
-    let operaciones = [];
     const op = ['%','x','/','-', '+']
-    
+    let i = 1;
     
     let buttons = document.getElementsByTagName('button')
     let result = document.getElementById('mostrarValor')
@@ -21,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Metodos
+    //Metodos y funciones
     const type = (valorBoton) => {
 
         //Calculadora encendida o apagada
@@ -45,19 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if(parseInt(valorBoton) || valorBoton === '0' || valorBoton === '00'){
 
             if(op.includes(result.innerHTML) ){
-                valorPantalla=''
                 result.innerHTML=''
             }
-            if(result.innerHTML == '0') {
+
+            if(result.innerHTML == '0' && valorPantalla.length ===1) {
                 valorPantalla=valorBoton
                 result.innerHTML=valorBoton 
             }else{
-            valorPantalla+=valorBoton
+                if(result.innerHTML === '0'){
+                    result.innerHTML=''; 
+                }
             result.innerHTML+=valorBoton
             return;
             }
-        }
 
+        }
         //Decimales con Punto
 
         if(valorBoton == '.'){
@@ -68,19 +67,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Operaciones
         if(op.includes(valorBoton)){
-            valores.push(parseFloat(valorPantalla)) 
-            valorPantalla=''
+            if(i % 2 === 0){
+                valorPantalla+=result.innerHTML;
+                result.innerHTML=valorBoton;
+                valorPantalla+=valorBoton
+                i++;
+                return;
+                
+            }
+            valorPantalla+=valorBoton
             result.innerHTML=valorBoton
-            operaciones.push(valorBoton)
+            i++;
             return;
         }
 
 
         //Borrado
         if(valorBoton === 'CE') {
-            result.innerHTML='0'
-            valorPantalla = '0'
-
+            result.innerHTML='0';
         }
 
         //Memoria Calculadora
@@ -104,16 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let valorMemoria = localStorage.getItem('valorGuardado')
             valorPantalla = valorMemoria
             result.innerHTML=valorMemoria
-
-
         }
-
-
-        
-
         //Resultado de operacion
         if(valorBoton == '='){
-            valores.push(parseFloat(valorPantalla)) 
+            valorPantalla+=result.innerHTML
             realizarOperacion()
         }
 
@@ -121,38 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Obtener resultado de la operacion
     const realizarOperacion = () => {
-       operaciones = operaciones.sort((a, b) => a - b);
-        let valorActual = valores[0]
-        for (let i = 1, o = 0; i < valores.length; i++, o++) {
-            if(operaciones.includes('x') && operaciones.lastIndexOf('x') > operaciones.lastIndexOf('/')){
-                let num2 = valores[operaciones.lastIndexOf('x') +1]      
-                let num1 = valores[operaciones.lastIndexOf('x')]
-                valores.splice(operaciones.lastIndexOf('x'), 2,  num1 * num2)
-                operaciones.slice(operaciones.lastIndexOf('x'),0)
-            }
-            if(operaciones.includes('/') && operaciones.lastIndexOf('x') < operaciones.lastIndexOf('/')){
-                let num2 = valores[operaciones.lastIndexOf('/') +1]      
-                let num1 = valores[operaciones.lastIndexOf('/')]
-                valores.splice(operaciones.lastIndexOf('/'), 2,  num1 / num2)
-                operaciones.slice(operaciones.lastIndexOf('/'),0)
-            }
-            switch (operaciones[o]) {
-                case '+':
-                    valorActual+=valores[i]
-                    break;
-                case '-':
-                    valorActual-=valores[i]
-                    break;
-
-                case '%':
-                    valorActual%=valores[i]
-                    break;
-            }
-        }
-        result.innerHTML=valorActual
-        valores = []
-        operaciones= []
-        valorPantalla =valorActual+""
+        let regex = /x/g;
+        valorPantalla = valorPantalla.replace(regex, '*');
+        result.innerHTML= eval(valorPantalla);
+        i = 1
     }
 
 
